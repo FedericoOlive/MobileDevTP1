@@ -14,27 +14,6 @@ public class AnimMngDesc : MonoBehaviour
 	public GameObject PuertaAnimada;
 
     public Material[] materials;
-	// Use this for initialization
-    /// <summary>
-    /// 
-    /// BrinksFullBack02
-    /// TruckFullHole
-    /// BrinksFullOutline
-    /// TruckFullNoname
-    ///
-    /// TaxiGlass00
-    ///
-    /// TruckFullNoname
-    ///
-    /// BrinksFullUnder
-    ///
-    /// TruckFullNoname
-    ///
-    ///
-    /// 
-    /// TruckFullNoname
-    /// 
-    /// </summary>
     void Start()
     {
         if (materials.Length == 9)
