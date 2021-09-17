@@ -4,12 +4,8 @@ public class Ui_RotateCam : MonoBehaviour
 {
     public Transform cam;
     public Transform center;
-    private float speed = 2;
-
-    private void Start()
-    {
-        
-    }
+    public float speed = 0.1f;
+    
     private void Update()
     {
         cam.transform.RotateAround(center.position, Vector3.up, speed);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -8,8 +7,8 @@ public class UI_MenuManager : MonoBehaviour
 {
     [SerializeField] private CanvasGroup[] menues;
     [SerializeField] private float timeTransition = 1;
-    [Space(10)]
-    [SerializeField] TextMeshProUGUI versionText = null;
+    [Space(10)] 
+    [SerializeField] private TextMeshProUGUI versionText;
 
     void Start()
     {
