@@ -3664,7 +3664,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GamePlay2P
+          m_StringArgument: GamePlay
           m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &373010559
@@ -5454,7 +5454,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GamePlay2P
+          m_StringArgument: GamePlay
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &551372204
@@ -18012,8 +18012,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d54ff68fb4b6324aa6215839d89c1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsOff: []
-  cameraP1: {fileID: 0}
 --- !u!4 &854767579
 Transform:
   m_ObjectHideFlags: 0
