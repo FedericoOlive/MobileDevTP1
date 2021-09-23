@@ -28,7 +28,7 @@ public class Pallet : MonoBehaviour
 	
 	void LateUpdate () 
 	{
-		if(Portador != null)
+		if(Portador)
 		{
 			if(EnSmoot)
 			{
