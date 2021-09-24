@@ -44,7 +44,7 @@ public class Cinta : ManejoPallets
 					if(Pallets[i].TempoEnCinta >= Pallets[i].TiempEnCinta)
 					{
 						Pallets[i].TempoEnCinta = 0;
-						ObjAct.gameObject.SetActiveRecursively(false);
+						ObjAct.gameObject.SetActive(false);
 					}
 				}
 			}

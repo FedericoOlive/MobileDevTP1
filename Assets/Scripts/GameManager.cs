@@ -252,19 +252,19 @@ public class GameManager : MonoBehaviour
 	{
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(true);
-			ObjsCalibracion2[i].SetActiveRecursively(true);
+			ObjsCalibracion1[i].SetActive(true);
+			ObjsCalibracion2[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
-			ObjsTuto2[i].SetActiveRecursively(false);
-			ObjsTuto1[i].SetActiveRecursively(false);
+			ObjsTuto2[i].SetActive(false);
+			ObjsTuto1[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsCarrera.Length; i++)
 		{
-			ObjsCarrera[i].SetActiveRecursively(false);
+			ObjsCarrera[i].SetActive(false);
 		}
 		
 		
@@ -291,12 +291,12 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(true);
+			ObjsTuto1[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(false);
+			ObjsCalibracion1[i].SetActive(false);
 		}
 		Player1.GetComponent<Frenado>().Frenar();
 		Player1.CambiarATutorial();
@@ -308,12 +308,12 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsCalibracion2.Length; i++)
 		{
-			ObjsCalibracion2[i].SetActiveRecursively(false);
+			ObjsCalibracion2[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
-			ObjsTuto2[i].SetActiveRecursively(true);
+			ObjsTuto2[i].SetActive(true);
 		}
 		Player2.GetComponent<Frenado>().Frenar();
 		Player2.gameObject.transform.position = PosCamion2Tuto;
@@ -419,14 +419,14 @@ public class GameManager : MonoBehaviour
 		
 		for(int i = 0; i < ObjsCarrera.Length; i++)
 		{
-			ObjsCarrera[i].SetActiveRecursively(true);
+			ObjsCarrera[i].SetActive(true);
 		}
 		
 		/*
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(false);
-			ObjsTuto2[i].SetActiveRecursively(false);
+			ObjsTuto1[i].SetActive(false);
+			ObjsTuto2[i].SetActive(false);
 		}
 		*/
 		
@@ -436,24 +436,24 @@ public class GameManager : MonoBehaviour
 			
 		for(int i = 0; i < ObjsTuto1.Length; i++)
 		{
-			ObjsTuto1[i].SetActiveRecursively(true);
+			ObjsTuto1[i].SetActive(true);
 		}
 		
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
 		{
-			ObjsCalibracion1[i].SetActiveRecursively(false);
+			ObjsCalibracion1[i].SetActive(false);
 		}
 		
 		PlayerInfo2.FinCalibrado = true;
 			
 		for(int i = 0; i < ObjsCalibracion2.Length; i++)
 		{
-			ObjsCalibracion2[i].SetActiveRecursively(false);
+			ObjsCalibracion2[i].SetActive(false);
 		}
 		
 		for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
-			ObjsTuto2[i].SetActiveRecursively(true);
+			ObjsTuto2[i].SetActive(true);
 		}
 		
 		

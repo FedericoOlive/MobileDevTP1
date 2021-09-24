@@ -10,7 +10,7 @@ public class ManejadorKinectCalib : MonoBehaviour
 	{
 		for(int i = 0; i < ParaAct.Length; i++)
 		{
-			ParaAct[i].SetActiveRecursively(false);
+			ParaAct[i].SetActive(false);
 		}
 	}
 	
@@ -22,31 +22,31 @@ public class ManejadorKinectCalib : MonoBehaviour
 		{
 			for(int i = 0; i < ParaAct.Length; i++)
 			{
-				ParaAct[i].SetActiveRecursively(false);
+				ParaAct[i].SetActive(false);
 			}
 			
 			if(ParaAct.Length >= 1)
-				ParaAct[0].SetActiveRecursively(true);
+				ParaAct[0].SetActive(true);
 		}
 		if(Input.GetKeyDown(KeyCode.Keypad2))
 		{
 			for(int i = 0; i < ParaAct.Length; i++)
 			{
-				ParaAct[i].SetActiveRecursively(false);
+				ParaAct[i].SetActive(false);
 			}
 			
 			if(ParaAct.Length >= 2)
-				ParaAct[1].SetActiveRecursively(true);
+				ParaAct[1].SetActive(true);
 		}
 		if(Input.GetKeyDown(KeyCode.Keypad3))
 		{
 			for(int i = 0; i < ParaAct.Length; i++)
 			{
-				ParaAct[i].SetActiveRecursively(false);
+				ParaAct[i].SetActive(false);
 			}
 			
 			if(ParaAct.Length >= 3)
-				ParaAct[2].SetActiveRecursively(true);
+				ParaAct[2].SetActive(true);
 		}
 		
 		//SALE AL VIDEO DE INTRO

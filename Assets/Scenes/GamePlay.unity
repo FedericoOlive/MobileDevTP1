@@ -101954,12 +101954,11 @@ MonoBehaviour:
   Velocidad: 3.5
   Mano: {fileID: 3017}
   Tiempo: 0.75
-  Intervalo: 0.4
-  Permanencia: 0.1
-  ModelCinta: {fileID: 2720}
+  Intervalo: 0.7
+  Permanencia: 0.2
   ColorParpadeo:
     serializedVersion: 2
-    rgba: 4283170816
+    rgba: 0
 --- !u!114 &13017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102522,12 +102521,11 @@ MonoBehaviour:
   Velocidad: 3.5
   Mano: {fileID: 3075}
   Tiempo: 0.75
-  Intervalo: 0.4
-  Permanencia: 0.1
-  ModelCinta: {fileID: 2963}
+  Intervalo: 0.7
+  Permanencia: 0.2
   ColorParpadeo:
     serializedVersion: 2
-    rgba: 4283170816
+    rgba: 0
 --- !u!114 &13064
 MonoBehaviour:
   m_ObjectHideFlags: 0
