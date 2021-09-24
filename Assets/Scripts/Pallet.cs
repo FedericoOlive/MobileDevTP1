@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-
 public class Pallet : MonoBehaviour 
 {
 	public Valores Valor;
@@ -9,13 +7,16 @@ public class Pallet : MonoBehaviour
 	public GameObject Portador = null;
 	public float TiempEnCinta = 1.5f;
 	public float TempoEnCinta = 0;
-	
-	public enum Valores {Valor1 = 100000, 
-						 Valor2 = 250000, 
-						 Valor3 = 500000}
-	
-	
-	public float TiempSmoot = 0.3f;
+
+    public enum Valores
+    {
+        Valor1 = 100000,
+        Valor2 = 250000,
+        Valor3 = 500000
+    }
+
+
+    public float TiempSmoot = 0.3f;
 	float TempoSmoot = 0;
 	public bool EnSmoot = false;
 	
