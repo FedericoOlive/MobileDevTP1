@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-
 public class ManejoPallets : MonoBehaviour 
 {
 	protected System.Collections.Generic.List<Pallet> Pallets = new System.Collections.Generic.List<Pallet>();
@@ -8,8 +6,8 @@ public class ManejoPallets : MonoBehaviour
 	protected int Contador = 0;
 	
 	public virtual bool Recibir(Pallet pallet)
-	{
-		Debug.Log(gameObject.name+" / Recibir()");
+    {
+        Debug.Log(gameObject.name + " / Recibir()");
 		Pallets.Add(pallet);
 		pallet.Pasaje();
 		return true;
@@ -17,19 +15,11 @@ public class ManejoPallets : MonoBehaviour
 	
 	public bool Tenencia()
 	{
-		
-		if(Pallets.Count != 0)
+        if(Pallets.Count != 0)
 			return true;
 		else
 			return false;
-		
-		/*
-		if(Pallets.Count > Contador)
-			return true;
-		else
-			return false;
-			*/
-	}
+    }
 	
 	public virtual void Dar(ManejoPallets receptor)
 	{

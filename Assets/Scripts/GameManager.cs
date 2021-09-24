@@ -4,46 +4,29 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	//public static Player[] Jugadoers;
-	
 	public static GameManager Instancia;
-	
-	public float TiempoDeJuego = 60;
-	
-	public enum EstadoJuego{Calibrando, Jugando, Finalizado}
+    public float TiempoDeJuego = 60;
+    public enum EstadoJuego{Calibrando, Jugando, Finalizado}
 	public EstadoJuego EstAct = EstadoJuego.Calibrando;
-	
-	public PlayerInfo PlayerInfo1 = null;
-	public PlayerInfo PlayerInfo2 = null;
-	
-	public Player Player1;
+    public PlayerInfo PlayerInfo1;
+	public PlayerInfo PlayerInfo2;
+    public Player Player1;
 	public Player Player2;
-	
-	//mueve los esqueletos para usar siempre los mismos
 	public Transform Esqueleto1;
 	public Transform Esqueleto2;
-	//public Vector3[] PosEsqsCalib;
 	public Vector3[] PosEsqsCarrera;
-	
-	bool PosSeteada = false;
-	
-	bool ConteoRedresivo = true;
+    bool ConteoRedresivo = true;
 	public Rect ConteoPosEsc;
 	public float ConteoParaInicion = 3;
 	public GUISkin GS_ConteoInicio;
-	
-	public Rect TiempoGUI = new Rect();
+    public Rect TiempoGUI = new Rect();
 	public GUISkin GS_TiempoGUI;
 	Rect R = new Rect();
-	
-	public float TiempEspMuestraPts = 3;
-	
-	public Vector3[]PosCamionesCarrera = new Vector3[2];
-
+    public float TiempEspMuestraPts = 3;
+    public Vector3[]PosCamionesCarrera = new Vector3[2];
     public Vector3 PosCamion1Tuto = Vector3.zero;
 	public Vector3 PosCamion2Tuto = Vector3.zero;
-
-	public GameObject[] ObjsCalibracion1;
+    public GameObject[] ObjsCalibracion1;
 	public GameObject[] ObjsCalibracion2;
 	//escena de tutorial
 	public GameObject[] ObjsTuto1;
@@ -51,8 +34,8 @@ public class GameManager : MonoBehaviour
 	//la pista de carreras
 	public GameObject[] ObjsCarrera;
 	IList<int> users;
-
     public ControladorDeDescarga controladorP2;
+
 	void Awake()
 	{
 		GameManager.Instancia = this;
@@ -297,7 +280,6 @@ public class GameManager : MonoBehaviour
 		pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
 		//en este momento, solo la primera vez, deberia setear la otra camara asi no se superponen
 		pjInf.PJ.ContrCalib.IniciarTesteo();
-		PosSeteada = true;
 		
 		
 		if(pjInf.PJ == Player1)

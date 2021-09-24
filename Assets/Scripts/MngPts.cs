@@ -8,7 +8,6 @@ public class MngPts : MonoBehaviour
 	public float TiempEmpAnims = 2.5f;
 	float Tempo = 0;
 	
-	int IndexGanador = 0;
 	
 	public Vector2[] DineroPos;
 	public Vector2 DineroEsc;
@@ -43,7 +42,6 @@ public class MngPts : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		//PARA JUGAR
 		if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -55,10 +53,6 @@ public class MngPts : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
-		}
-		if(Input.GetKeyDown(KeyCode.Backspace))
-		{
-			Application.LoadLevel(3);
 		}
         TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
@@ -83,7 +77,7 @@ public class MngPts : MonoBehaviour
 				}
 			}
 		}
-        if(!ActivadoAnims)
+		else
 		{
 			Tempo += Time.deltaTime;
 			if(Tempo >= TiempEmpAnims)

@@ -4,7 +4,7 @@ using System.Collections;
 public class Bolsa : MonoBehaviour
 {
 	public Pallet.Valores Monto;
-	//public int IdPlayer = 0;
+	//public int idPlayer = 0;
 	public string TagPlayer = "";
 	public Texture2D ImagenInventario;
 	Player Pj = null;
@@ -48,7 +48,7 @@ public class Bolsa : MonoBehaviour
 		if(coll.tag == TagPlayer)
 		{
 			Pj = coll.GetComponent<Player>();
-			//if(IdPlayer == Pj.IdPlayer)
+			//if(idPlayer == Pj.idPlayer)
 			//{
 				if(Pj.AgregarBolsa(this))
 					Desaparecer();

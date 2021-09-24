@@ -29,7 +29,6 @@ public class TaxiComp : MonoBehaviour
 	float TempoEntreGiro = 0;
 	
 	public float AngDeGiro = 30;
-	float TiempPGiro = 1;			//1 es el tiempo que tarda en llegar al otro quaternion
 	
 	RaycastHit RH;
 	
@@ -84,7 +83,7 @@ public class TaxiComp : MonoBehaviour
 	
 	void OnTriggerEnter(Collider coll)
 	{
-		if(coll.tag == FinTaxiTag)
+		if(coll.CompareTag(FinTaxiTag))
 		{
 			transform.position = PosIni;
 			transform.localEulerAngles = RotIni;
@@ -93,7 +92,7 @@ public class TaxiComp : MonoBehaviour
 	
 	void OnCollisionEnter(Collision coll)
 	{
-		if(coll.transform.tag == LimiteTag)
+		if(coll.transform.CompareTag(LimiteTag))
 		{
 			Respawneando = true;
 		}
@@ -101,7 +100,7 @@ public class TaxiComp : MonoBehaviour
 	
 	void FixedUpdate () 
 	{
-		this.transform.position += transform.forward * Time.fixedDeltaTime * Vel;
+		transform.position += transform.forward * Time.fixedDeltaTime * Vel;
 	}
 	
 	//--------------------------------------------------------------------//
@@ -113,7 +112,7 @@ public class TaxiComp : MonoBehaviour
 		case Lado.Der:
 			if(Physics.Raycast(transform.position, transform.right, out RH, AlcanceVerif))
 			{
-				if(RH.transform.tag == TagTerreno)
+				if(RH.transform.CompareTag(TagTerreno))
 				{
 					return false;
 				}
@@ -123,7 +122,7 @@ public class TaxiComp : MonoBehaviour
 		case Lado.Izq:
 			if(Physics.Raycast(transform.position, transform.right * (-1), out RH, AlcanceVerif))
 			{
-				if(RH.transform.tag == TagTerreno)
+				if(RH.transform.CompareTag(TagTerreno))
 				{
 					return false;
 				}
@@ -172,7 +171,7 @@ public class TaxiComp : MonoBehaviour
 	void DejarDoblar()
 	{
 		Girando = false;
-		TiempEntreGiro = (float) Random.Range(TiempCadaCuantoDobla_MaxMin.x, TiempCadaCuantoDobla_MaxMin.y);
+		TiempEntreGiro =  Random.Range(TiempCadaCuantoDobla_MaxMin.x, TiempCadaCuantoDobla_MaxMin.y);
 		
 		transform.localEulerAngles = RotIni;
 	}

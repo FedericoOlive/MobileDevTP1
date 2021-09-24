@@ -23,13 +23,13 @@ public class AcelerAuto : MonoBehaviour
 	void Update ()
 	{
 		/*
-		if(Velocidad < VelMax)
+		if(velocidad < VelMax)
 		{
-			Velocidad += AcelPorSeg * Time.deltaTime;
+			velocidad += AcelPorSeg * Time.deltaTime;
 		}
 		*/
 		
-		//Debug.Log("Velocidad: "+rigidbody.velocity.magnitude);
+		//Debug.Log("velocidad: "+rigidbody.velocity.magnitude);
 		
 		if(Avil)
 		{
@@ -45,19 +45,19 @@ public class AcelerAuto : MonoBehaviour
 	void FixedUpdate () 
 	{
 		/*
-		//this.rigidbody.MovePosition(this.transform.position + this.transform.forward * Velocidad);
+		//this.rigidbody.MovePosition(this.transform.position + this.transform.forward * velocidad);
 		if(rigidbody.velocity.magnitude < VelMax)
 			rigidbody.velocity += transform.forward * AcelPorSeg * Time.deltaTime;
 			*/
 		
 		
 		/*
-		if(Velocidad < VelMax)
+		if(velocidad < VelMax)
 		{
-			Velocidad += AcelPorSeg * Time.fixedDeltaTime;
+			velocidad += AcelPorSeg * Time.fixedDeltaTime;
 		}
 		
-		rigidbody.MovePosition(this.transform.position + this.transform.forward * Velocidad);
+		rigidbody.MovePosition(this.transform.position + this.transform.forward * velocidad);
 		*/
 		
 		if(Velocidad < VelMax)
@@ -76,10 +76,10 @@ public class AcelerAuto : MonoBehaviour
 			if(Obstaculo != null)
 			{
 				
-				//Velocidad -= Obstaculo.ReduccionVel;
+				//velocidad -= Obstaculo.ReduccionVel;
 				
-				//if(Velocidad < 0)
-					//Velocidad = 0;
+				//if(velocidad < 0)
+					//velocidad = 0;
 					
 				GetComponent<Rigidbody>().velocity /= 2;
 			}

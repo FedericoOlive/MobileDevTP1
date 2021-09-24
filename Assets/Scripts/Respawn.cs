@@ -1,126 +1,97 @@
-using System;
 using UnityEngine;
-using System.Collections;
-using Random = UnityEngine.Random;
-
-public class Respawn : MonoBehaviour 
+public class Respawn : MonoBehaviour
 {
-	CheakPoint CPAct;
-	CheakPoint CPAnt;
-	
-	public float AngMax = 90;//angulo maximo antes del cual se reinicia el camion
-	int VerifPorCuadro = 20;
-	int Contador = 0;
-	
-	public float RangMinDer = 0;
-	public float RangMaxDer = 0;
-	
-	bool IgnorandoColision = false;
-	public float TiempDeNoColision = 2;
-	float Tempo = 0;
-
+    private CheakPoint CPAct;
+    private CheakPoint CPAnt;
+    public float angMax = 90;
+    private int verifPorCuadro = 20;
+    private int contador;
+    public float rangMinDer;
+	public float rangMaxDer;
+    private bool ignorandoColision;
+	public float tiempDeNoColision = 2;
+    private float tempo;
     public CarController carController;
-	//--------------------------------------------------------//
+    private Rigidbody rb;
+    private Visualizacion visualizacion;
+
     private void Awake()
     {
+        visualizacion = GetComponent<Visualizacion>();
+        rb = GetComponent<Rigidbody>();
         carController = GetComponent<CarController>();
     }
-
-    // Use this for initialization
-	void Start () 
-	{
-		/*
-		//a modo de prueba
-		TiempDeNoColision = 100;
-		IgnorarColision(true);
-		*/
-		
-		//restaura las colisiones
-		Physics.IgnoreLayerCollision(8,9,false);
-	}
-	
-	// Update is called once per frame
+	void Start ()
+    {
+        Physics.IgnoreLayerCollision(8, 9, false);
+    }
 	void Update ()
 	{
-		if(CPAct != null)
+		if(CPAct)
 		{
-			Contador++;
-			if(Contador == VerifPorCuadro)
+			contador++;
+			if(contador == verifPorCuadro)
 			{
-				Contador = 0;
-				if(AngMax < Quaternion.Angle(transform.rotation, CPAct.transform.rotation))
+				contador = 0;
+				if(angMax < Quaternion.Angle(transform.rotation, CPAct.transform.rotation))
 				{
 					Respawnear();
 				}
 			}
 		}
-		
-		if(IgnorandoColision)
+        if(ignorandoColision)
 		{
-			Tempo += Time.deltaTime;
-			if(Tempo > TiempDeNoColision)
+			tempo += Time.deltaTime;
+			if(tempo > tiempDeNoColision)
 			{
 				IgnorarColision(false);
 			}
 		}
-		
-	}
-	
-	//--------------------------------------------------------//
-	
+    }
 	public void Respawnear()
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+        rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
         carController.SetGiro(0.0f);
-		
-		if(CPAct.Habilitado())
-		{
-			if(GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
-				transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer, RangMaxDer);
-			else 
-				transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
-			transform.forward = CPAct.transform.forward;
-		}
-		else if(CPAnt != null)
-		{
-			if(GetComponent<Visualizacion>().LadoAct == Visualizacion.Lado.Der)
-				transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer, RangMaxDer);
-			else
-				transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(RangMinDer * (-1), RangMaxDer * (-1));
-			transform.forward = CPAnt.transform.forward;
-		}
-		
-		IgnorarColision(true);
-		
-		//animacion de resp
-		
-	}
-	
-	public void Respawnear(Vector3 pos)
+        if (CPAct.Habilitado())
+        {
+            if (visualizacion.LadoAct == Visualizacion.Lado.Der)
+                transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(rangMinDer, rangMaxDer);
+            else
+                transform.position = CPAct.transform.position + CPAct.transform.right * Random.Range(rangMinDer * (-1), rangMaxDer * (-1));
+            transform.forward = CPAct.transform.forward;
+        }
+        else if (CPAnt != null)
+        {
+            if (visualizacion.LadoAct == Visualizacion.Lado.Der)
+                transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(rangMinDer, rangMaxDer);
+            else
+                transform.position = CPAnt.transform.position + CPAnt.transform.right * Random.Range(rangMinDer * (-1), rangMaxDer * (-1));
+            transform.forward = CPAnt.transform.forward;
+        }
+        IgnorarColision(true);
+        Invoke(nameof(ResetRb), 0.1f);
+    }
+    void ResetRb()
+    {
+        rb.constraints = RigidbodyConstraints.None;
+    }
+    public void Respawnear(Vector3 pos)
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+        rb.velocity = Vector3.zero;
         carController.SetGiro(0.0f);
-
-		transform.position = pos;
-		
-		IgnorarColision(true);
+        transform.position = pos;
+        IgnorarColision(true);
 	}
-	
-	public void Respawnear(Vector3 pos, Vector3 dir)
+    public void Respawnear(Vector3 pos, Vector3 dir)
 	{
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-
+        rb.velocity = Vector3.zero;
         carController.SetGiro(0.0f);
-
-		transform.position = pos;
+        transform.position = pos;
 		transform.forward = dir;
-		
-		IgnorarColision(true);
+        IgnorarColision(true);
 	}
-	
-	public void AgregarCP(CheakPoint cp)
+    public void AgregarCP(CheakPoint cp)
 	{
 		if(cp != CPAct)
 		{
@@ -128,16 +99,10 @@ public class Respawn : MonoBehaviour
 			CPAct = cp;
 		}
 	}
-	
-	void IgnorarColision(bool b)
+    void IgnorarColision(bool b)
 	{
-		//no contempla si los dos camiones respawnean relativamente cerca en el espacio 
-		//temporal y uno de ellos va contra el otro, 
-		//justo el segundo cancela las colisiones e inmediatamente el 1º las reactiva, 
-		//entonces colisionan, pero es dificil que suceda. 
-		
 		Physics.IgnoreLayerCollision(8,9,b);
-		IgnorandoColision = b;	
-		Tempo = 0;
+		ignorandoColision = b;	
+		tempo = 0;
 	}
 }

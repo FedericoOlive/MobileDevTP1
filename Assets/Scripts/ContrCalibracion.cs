@@ -13,7 +13,7 @@ public class ContrCalibracion : MonoBehaviour
 	*/
 	/*
 	public float TiempCalib = 3;
-	float Tempo = 0;
+	float tempo = 0;
 	*/
 	public float TiempEspCalib = 3;
 	float Tempo2 = 0;
@@ -60,7 +60,7 @@ public class ContrCalibracion : MonoBehaviour
 	{
 		/*
 		Reiniciar();
-		GM.CambiarATutorial(Pj.IdPlayer);
+		GM.CambiarATutorial(Pj.idPlayer);
 		*/
 	}
 	

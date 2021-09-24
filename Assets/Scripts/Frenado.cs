@@ -1,105 +1,72 @@
-using System;
 using UnityEngine;
-using System.Collections;
-
-public class Frenado : MonoBehaviour 
+public class Frenado : MonoBehaviour
 {
-	public float VelEntrada = 0;
-	public string TagDeposito = "Deposito";
-	
-	ControlDireccion KInput;
+    public float velEntrada;
+    public string tagDeposito = "Deposito";
+    public bool frenando;
+    private int cantMensajes = 10;
     private CarController carController;
-	
-	float DagMax = 15f;
-	float DagIni = 1f;
-	int Contador = 0;
-	int CantMensajes = 10;
-	float TiempFrenado = 0.5f;
-	float Tempo = 0f;
-	
-	Vector3 Destino;
-	
-	public bool Frenando = false;
-	bool ReduciendoVel = false;
-	
-	//-----------------------------------------------------//
+    private int contador;
+    private Vector3 destino;
+    private ControlDireccion KInput;
+    private float tempo;
+    private float tiempoFrenado = 0.5f;
+    private Player player;
+    private ControlDireccion controlDireccion;
+    private Rigidbody rb;
+
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        player = GetComponent<Player>();
+        controlDireccion = GetComponent<ControlDireccion>();
         carController = GetComponent<CarController>();
     }
+    private void Start()
+    {
+        Frenar();
+    }
+    private void FixedUpdate()
+    {
+        if (frenando)
+        {
+            tempo += Time.deltaTime;
+            if (tempo >= tiempoFrenado / cantMensajes * contador) contador++;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(tagDeposito))
+        {
+            Deposito2 dep = other.GetComponent<Deposito2>();
+            if (!dep.Vacio) return;
 
-    // Use this for initialization
-	void Start () 
-	{
-		//RestaurarVel();
-		Frenar();
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
-	
-	void FixedUpdate ()
-	{
-		if(Frenando)
-		{
-			Tempo += Time.deltaTime;
-			if(Tempo >= (TiempFrenado / CantMensajes) * Contador)
-			{
-				Contador++;
-				//gameObject.SendMessage("SetDragZ", (float) (DagMax / CantMensajes) * Contador);
-			}
-			if(Tempo >= TiempFrenado)
-			{
-				//termino de frenar, que haga lo que quiera
-			}
-		}
-	}
-	
-	void OnTriggerEnter(Collider other) 
-	{
-		if(other.tag == TagDeposito)
-		{
-			Deposito2 dep = other.GetComponent<Deposito2>();
-			if(dep.Vacio)
-			{	
-				if(this.GetComponent<Player>().ConBolasas())
-				{
-					dep.Entrar(this.GetComponent<Player>());
-					Destino = other.transform.position;
-					transform.forward = Destino - transform.position;
-					Frenar();
-				}				
-			}
-		}
-	}
-	
-	//-----------------------------------------------------------//
-	
-	public void Frenar()
-	{
-		//Debug.Log(gameObject.name + "frena");
-		GetComponent<ControlDireccion>().enabled = false;
+            if (player.ConBolasas())
+            {
+                dep.Entrar(player);
+                destino = other.transform.position;
+                transform.forward = destino - transform.position;
+                Frenar();
+            }
+        }
+    }
+    public void Frenar()
+    {
+        controlDireccion.enabled = false;
         carController.SetAcel(0);
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
-		
-		Frenando = true;
-		
-		//gameObject.SendMessage("SetDragZ", 25f);
-		Tempo = 0;
-		Contador = 0;
-	}
-	
-	public void RestaurarVel()
-	{
-		//Debug.Log(gameObject.name + "restaura la velociad");
-		GetComponent<ControlDireccion>().enabled = true;
+        rb.velocity = Vector3.zero;
+
+        frenando = true;
+
+        tempo = 0;
+        contador = 0;
+    }
+    public void RestaurarVel()
+    {
+        controlDireccion.enabled = true;
         carController.SetAcel(1);
-		Frenando = false;
-		Tempo = 0;
-		Contador = 0;
-		//gameObject.SendMessage("SetDragZ", 1f);
-	}
+        frenando = false;
+        tempo = 0;
+        contador = 0;
+    }
 }
