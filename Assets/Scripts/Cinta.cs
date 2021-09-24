@@ -15,40 +15,16 @@ public class Cinta : ManejoPallets
 	public float Intervalo = 0.7f;
 	public float Permanencia = 0.2f;
 	float AnimTempo = 0;
-	public GameObject ModelCinta;
 	public Color32 ColorParpadeo;
 	Color32 ColorOrigModel;
-	
-	//------------------------------------------------------------//
-	
-	void Start () 
-	{
-		ColorOrigModel = ModelCinta.GetComponent<Renderer>().material.color;
-	}
 	
 	void Update () 
 	{
 		//animacion de parpadeo
 		if(Encendida)
 		{
-			AnimTempo += T.GetDT();
-			if(AnimTempo > Permanencia)
-			{
-				if(ModelCinta.GetComponent<Renderer>().material.color == ColorParpadeo)
-				{
-					AnimTempo = 0;
-					ModelCinta.GetComponent<Renderer>().material.color = ColorOrigModel;
-				}
-			}
-			if(AnimTempo > Intervalo)
-			{
-				if(ModelCinta.GetComponent<Renderer>().material.color == ColorOrigModel)
-				{
-					AnimTempo = 0;
-					ModelCinta.GetComponent<Renderer>().material.color = ColorParpadeo;
-				}
-			}
-		}
+			AnimTempo += Time.deltaTime;
+        }
 		
 		//movimiento del pallet
 		for(int i = 0; i < Pallets.Count; i++)
@@ -58,9 +34,9 @@ public class Cinta : ManejoPallets
 				if(!Pallets[i].GetComponent<Pallet>().EnSmoot)
 				{
 					Pallets[i].GetComponent<Pallet>().enabled = false;
-					Pallets[i].TempoEnCinta += T.GetDT();
+					Pallets[i].TempoEnCinta += Time.deltaTime;
 					
-					Pallets[i].transform.position += transform.right * Velocidad * T.GetDT();
+					Pallets[i].transform.position += transform.right * Velocidad * Time.deltaTime;
 					Vector3 vAux = Pallets[i].transform.localPosition;
 					vAux.y = 3.61f;//altura especifica
 					Pallets[i].transform.localPosition = vAux;					
@@ -104,12 +80,10 @@ public class Cinta : ManejoPallets
 	public void Encender()
 	{
 		Encendida = true;
-		ModelCinta.GetComponent<Renderer>().material.color = ColorOrigModel;
 	}
 	public void Apagar()
 	{
 		Encendida = false;
 		ConPallet = false;
-		ModelCinta.GetComponent<Renderer>().material.color = ColorOrigModel;
 	}
 }

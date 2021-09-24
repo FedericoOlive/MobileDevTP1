@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
 			
 			/*
 			//para testing
-			TiempoTranscurrido += T.GetDT();
+			TiempoTranscurrido += Time.deltaTime;
 			DistanciaRecorrida += (Player1.transform.position - PosCamionesCarrera[0]).magnitude;
 			*/
 			
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 				//Player1.rigidbody.velocity = Vector3.zero;
 				//Player2.rigidbody.velocity = Vector3.zero;
 				
-				ConteoParaInicion -= T.GetDT();
+				ConteoParaInicion -= Time.deltaTime;
 				if(ConteoParaInicion < 0)
 				{
 					EmpezarCarrera();
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
 			else
 			{
 				//baja el tiempo del juego
-				TiempoDeJuego -= T.GetDT();
+				TiempoDeJuego -= Time.deltaTime;
 				if(TiempoDeJuego <= 0)
 				{
 					//termina el juego
