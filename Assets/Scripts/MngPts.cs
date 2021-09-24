@@ -44,44 +44,29 @@ public class MngPts : MonoBehaviour
 	void Update () 
 	{
 		//PARA JUGAR
-		if(Input.GetKeyDown(KeyCode.KeypadEnter) || 
-		   Input.GetKeyDown(KeyCode.Return) ||
-		   Input.GetKeyDown(KeyCode.Mouse0))
-		{
-			Application.LoadLevel(0);
+		if(Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-		
-		//REINICIAR
-		if(Input.GetKeyDown(KeyCode.Mouse1) ||
-		   Input.GetKeyDown(KeyCode.Keypad0))
+		if(Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKeyDown(KeyCode.Keypad0))
 		{
-			Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-		
-		//CIERRA LA APLICACION
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
 		}
-		
-		//CALIBRACION DEL KINECT
 		if(Input.GetKeyDown(KeyCode.Backspace))
 		{
 			Application.LoadLevel(3);
-		}		
-		
-		
-		TiempEspReiniciar -= Time.deltaTime;
+		}
+        TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
 		{
 			DestroyImmediate(GameMaster.Get().gameObject);
 			SceneManager.LoadScene("GameOver");
 		}
-		
-		
-		
-		
-		if(ActivadoAnims)
+        if(ActivadoAnims)
 		{
 			TempoParpadeo += Time.deltaTime;
 			
@@ -98,10 +83,7 @@ public class MngPts : MonoBehaviour
 				}
 			}
 		}
-		
-		
-		
-		if(!ActivadoAnims)
+        if(!ActivadoAnims)
 		{
 			Tempo += Time.deltaTime;
 			if(Tempo >= TiempEmpAnims)
@@ -110,19 +92,7 @@ public class MngPts : MonoBehaviour
 				ActivadoAnims = true;
 			}
 		}
-		
-		
-	}
-	
-	/*
-	void OnGUI()
-	{
-		SetGUIGanador();
-		SetGUIPerdedor();
-		GUI.skin = null;
-	}
-	*/
-	
+    }
 	void OnGUI()
 	{
 		if(ActivadoAnims)
@@ -133,44 +103,6 @@ public class MngPts : MonoBehaviour
 		
 		GUI.skin = null;
 	}
-	
-	//---------------------------------//
-	
-	/*
-	void SetGUIGanador()
-	{
-		GUI.skin = GS_Vict;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "GANADOR" + '\n' + "DINERO: " + DatosPartida.PtsGanador);
-		
-	}
-	
-	void SetGUIPerdedor()
-	{
-		GUI.skin = GS_Derr;
-		
-		R.width = ScoreEsc.x * Screen.width /100;
-		R.height = ScoreEsc.y * Screen.height /100;
-		
-		R.x = ScorePos.x * Screen.width / 100;
-		R.y = ScorePos.y * Screen.height / 100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		GUI.Box(R, "PERDEDOR" + '\n' + "DINERO: " + DatosPartida.PtsPerdedor);
-	}
-	*/
-	
 	void SetGanador()
 	{
 		switch(DatosPartida.LadoGanadaor)
@@ -188,8 +120,7 @@ public class MngPts : MonoBehaviour
 			break;
 		}
 	}
-	
-	void SetDinero()
+    void SetDinero()
 	{
 		GUI.skin = GS_Dinero;
 		

@@ -1,26 +1,21 @@
-using System;
 using UnityEngine;
-using System.Collections;
-
 public class ControlDireccion : MonoBehaviour 
 {
+    public enum Sentido
+    {
+        Der,
+        Izq
+    }
 	public enum TipoInput {Mouse, Kinect, AWSD, Arrows}
-	public TipoInput InputAct = ControlDireccion.TipoInput.Mouse;
-
-	public Transform ManoDer;
+	public TipoInput InputAct = TipoInput.Mouse;
+    public Transform ManoDer;
 	public Transform ManoIzq;
-	
-	public float MaxAng = 90;
+    public float MaxAng = 90;
 	public float DesSencibilidad = 90;
-	
-	float Giro;
-	
-	public enum Sentido {Der, Izq}
-	Sentido DirAct;
-	
-	public bool Habilitado = true;
+    private float Giro;
+    private Sentido DirAct;
+    public bool Habilitado = true;
     private CarController carController;
-
     private void Awake()
     {
         carController = GetComponent<CarController>();
@@ -34,15 +29,7 @@ public class ControlDireccion : MonoBehaviour
             break;
 			
 		case TipoInput.Kinect:
-			
-			if(ManoIzq.position.y > ManoDer.position.y)
-			{
-				DirAct = Sentido.Der;
-			}
-			else
-			{
-				DirAct = Sentido.Izq;
-			}
+            DirAct = (ManoIzq.position.y > ManoDer.position.y) ? Sentido.Der : Sentido.Izq;
 			
 			switch(DirAct)
 			{
@@ -66,18 +53,22 @@ public class ControlDireccion : MonoBehaviour
 				break;
 			}
 			break;
-            case TipoInput.AWSD:
+            case TipoInput.AWSD:                // Todo: WASD GetKey() KeyConde.W
                 if (Habilitado)
                 {
-                    if (Input.GetKey(KeyCode.A)) carController.SetGiro(-1);
-                    if (Input.GetKey(KeyCode.D)) carController.SetGiro(1);
+                    if (Input.GetKey(KeyCode.A)) 
+                        carController.SetGiro(-1);
+                    if (Input.GetKey(KeyCode.D)) 
+                        carController.SetGiro(1);
                 }
                 break;
             case TipoInput.Arrows:
                 if (Habilitado)
                 {
-                    if (Input.GetKey(KeyCode.LeftArrow)) carController.SetGiro(-1);
-                    if (Input.GetKey(KeyCode.RightArrow)) carController.SetGiro(1);
+                    if (Input.GetKey(KeyCode.LeftArrow)) 
+                        carController.SetGiro(-1);
+                    if (Input.GetKey(KeyCode.RightArrow)) 
+                        carController.SetGiro(1);
                 }
                 break;
         }
@@ -89,5 +80,4 @@ public class ControlDireccion : MonoBehaviour
 		
 		return Vector2.Angle(diferencia,new Vector2(1,0));
 	}
-	
 }

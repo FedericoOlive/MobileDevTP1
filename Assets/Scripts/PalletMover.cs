@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PalletMover : ManejoPallets {
-
-    public MoveType miInput;
+public class PalletMover : ManejoPallets 
+{
     public enum MoveType {
         WASD,
         Arrows
     }
+    public MoveType miInput;
 
     public ManejoPallets Desde, Hasta;
     bool segundoCompleto = false;
@@ -16,24 +14,30 @@ public class PalletMover : ManejoPallets {
     private void Update() {
         switch (miInput) {
             case MoveType.WASD:
-                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.A)) {
+                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.A))
+                {
                     PrimerPaso();
                 }
-                if (Tenencia() && Input.GetKeyDown(KeyCode.S)) {
+                if (Tenencia() && Input.GetKeyDown(KeyCode.S))
+                {
                     SegundoPaso();
                 }
-                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.D)) {
+                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.D))
+                {
                     TercerPaso();
                 }
                 break;
             case MoveType.Arrows:
-                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.LeftArrow)) {
+                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.LeftArrow)) 
+                {
                     PrimerPaso();
                 }
-                if (Tenencia() && Input.GetKeyDown(KeyCode.DownArrow)) {
+                if (Tenencia() && Input.GetKeyDown(KeyCode.DownArrow)) 
+                {
                     SegundoPaso();
                 }
-                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.RightArrow)) {
+                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.RightArrow)) 
+                {
                     TercerPaso();
                 }
                 break;

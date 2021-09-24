@@ -38,15 +38,11 @@ public class GameManager : MonoBehaviour
 	
 	public float TiempEspMuestraPts = 3;
 	
-	//posiciones de los camiones dependientes del lado que les toco en la pantalla
-	//la pos 0 es para la izquierda y la 1 para la derecha
 	public Vector3[]PosCamionesCarrera = new Vector3[2];
-	//posiciones de los camiones para el tutorial
-	public Vector3 PosCamion1Tuto = Vector3.zero;
+
+    public Vector3 PosCamion1Tuto = Vector3.zero;
 	public Vector3 PosCamion2Tuto = Vector3.zero;
-	
-	//listas de GO que activa y desactiva por sub-escena
-	//escena de calibracion
+
 	public GameObject[] ObjsCalibracion1;
 	public GameObject[] ObjsCalibracion2;
 	//escena de tutorial
@@ -54,58 +50,28 @@ public class GameManager : MonoBehaviour
 	public GameObject[] ObjsTuto2;
 	//la pista de carreras
 	public GameObject[] ObjsCarrera;
-	//de las descargas se encarga el controlador de descargas
-	
-	//para saber que el los ultimos 5 o 10 segs se cambie de tamaño la font del tiempo
-	//bool SeteadoNuevaFontSize = false;
-	//int TamOrigFont = 75;
-	//int TamNuevoFont = 75;
-	
-	/*
-	//para el testing
-	public float DistanciaRecorrida = 0;
-	public float TiempoTranscurrido = 0;
-	*/
-	
 	IList<int> users;
 
     public ControladorDeDescarga controladorP2;
-	//--------------------------------------------------------//
-	
 	void Awake()
 	{
 		GameManager.Instancia = this;
 	}
-	
-	void Start()
+    void Start()
 	{
 		IniciarCalibracion();
-		
-		//para testing
-		//PosCamionesCarrera[0].x+=100;
-		//PosCamionesCarrera[1].x+=100;
 	}
-	
-	void Update()
+    void Update()
 	{
-		//REINICIAR
 		if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
-		{
-			Application.LoadLevel(Application.loadedLevel);
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
-		
-		//CIERRA LA APLICACION
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
-		
+		if(Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
 		
 		switch (EstAct)
 		{
 		case EstadoJuego.Calibrando:
-			
-			//SKIP EL TUTORIAL
 			if(Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Keypad0))
 			{
 				if(PlayerInfo1 != null && PlayerInfo2 != null)
@@ -118,55 +84,38 @@ public class GameManager : MonoBehaviour
 				}
 			}
 
-                if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W)) {
-                    PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                    SetPosicion(PlayerInfo1);
-                }
+            if (!PlayerInfo1.PJ && Input.GetKeyDown(KeyCode.W))
+            {
+                PlayerInfo1 = new PlayerInfo(0, Player1);
+                PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                SetPosicion(PlayerInfo1);
+            }
 
-                if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow)) {
-                    PlayerInfo2 = new PlayerInfo(1, Player2);
-                    PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                    SetPosicion(PlayerInfo2);
+            if (!PlayerInfo2.PJ && Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                PlayerInfo2 = new PlayerInfo(1, Player2);
+                PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+                SetPosicion(PlayerInfo2);
+            }
+
+            //cuando los 2 pj terminaron los tutoriales empiesa la carrera
+            if (PlayerInfo1.PJ && PlayerInfo2.PJ)
+            {
+                if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                {
+                    EmpezarCarrera();
                 }
-			
-			//cuando los 2 pj terminaron los tutoriales empiesa la carrera
-			if(PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-			{
-				if(PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
-				{
-					EmpezarCarrera();
-				}
-			}
-			
-			break;
-			
-			
-		case EstadoJuego.Jugando:
-			
-			//SKIP LA CARRERA
+            }
+            break;
+        case EstadoJuego.Jugando:
 			if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
-			{
-				TiempoDeJuego = 0;
-			}
+                TiempoDeJuego = 0;
 			
-			if(TiempoDeJuego <= 0)
-			{
-				FinalizarCarrera();
-			}
+            if(TiempoDeJuego <= 0)
+                FinalizarCarrera();
 			
-			/*
-			//para testing
-			TiempoTranscurrido += Time.deltaTime;
-			DistanciaRecorrida += (Player1.transform.position - PosCamionesCarrera[0]).magnitude;
-			*/
-			
-			if(ConteoRedresivo)
+            if(ConteoRedresivo)
 			{
-				//se asegura de que los vehiculos se queden inmobiles
-				//Player1.rigidbody.velocity = Vector3.zero;
-				//Player2.rigidbody.velocity = Vector3.zero;
-				
 				ConteoParaInicion -= Time.deltaTime;
 				if(ConteoParaInicion < 0)
 				{
@@ -176,39 +125,17 @@ public class GameManager : MonoBehaviour
 			}
 			else
 			{
-				//baja el tiempo del juego
 				TiempoDeJuego -= Time.deltaTime;
-				if(TiempoDeJuego <= 0)
-				{
-					//termina el juego
-				}
-				/*
-				//otro tamaño
-				if(!SeteadoNuevaFontSize && TiempoDeJuego <= 5)
-				{
-					SeteadoNuevaFontSize = true;
-					GS_TiempoGUI.box.fontSize = TamNuevoFont;
-					GS_TiempoGUI.box.normal.textColor = Color.red;
-				}
-				*/
 			}
-			
-			break;
-			
-			
-		case EstadoJuego.Finalizado:
-			
-			//nada de trakeo con kinect, solo se muestra el puntaje
-			//tambien se puede hacer alguna animacion, es el tiempo previo a la muestra de pts
-			
+            break;
+        case EstadoJuego.Finalizado:
 			TiempEspMuestraPts -= Time.deltaTime;
             if (TiempEspMuestraPts <= 0)
                 SceneManager.LoadScene("GameOver");
             break;		
 		}
 	}
-	
-	void OnGUI()
+    void OnGUI()
 	{
 		switch (EstAct)
 		{
@@ -240,12 +167,8 @@ public class GameManager : MonoBehaviour
 			GUI.Box(R,TiempoDeJuego.ToString("00"));
 			break;
 		}
-		
-		GUI.skin = null;
+        GUI.skin = null;
 	}
-	
-	//----------------------------------------------------------//
-	
 	public void IniciarCalibracion()
 	{
 		for(int i = 0; i < ObjsCalibracion1.Length; i++)
@@ -259,31 +182,15 @@ public class GameManager : MonoBehaviour
 			ObjsTuto2[i].SetActive(false);
 			ObjsTuto1[i].SetActive(false);
 		}
-		
-		for(int i = 0; i < ObjsCarrera.Length; i++)
+        for(int i = 0; i < ObjsCarrera.Length; i++)
 		{
 			ObjsCarrera[i].SetActive(false);
 		}
-		
-		
-		Player1.CambiarACalibracion();
+
+        Player1.CambiarACalibracion();
         if (!GameMaster.Get().IsSinglePlayer())
             Player2.CambiarACalibracion();
     }
-		
-	/*
-	public void CambiarADescarga(Player pj)
-	{
-		//en la escena de la pista, activa la camara y las demas propiedades 
-		//de la escena de descarga
-	}
-	
-	public void CambiarAPista(Player pj)//de descarga ala pista de vuelta
-	{
-		//lo mismo pero al revez
-	}
-	*/	
-	
 	void CambiarATutorial()
 	{
 		PlayerInfo1.FinCalibrado = true;
