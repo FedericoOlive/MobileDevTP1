@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,7 +68,8 @@ public class GameManager : MonoBehaviour
 	*/
 	
 	IList<int> users;
-	
+
+    public ControladorDeDescarga controladorP2;
 	//--------------------------------------------------------//
 	
 	void Awake()
@@ -87,8 +89,7 @@ public class GameManager : MonoBehaviour
 	void Update()
 	{
 		//REINICIAR
-		if(Input.GetKey(KeyCode.Mouse1) &&
-		   Input.GetKey(KeyCode.Keypad0))
+		if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
@@ -105,8 +106,7 @@ public class GameManager : MonoBehaviour
 		case EstadoJuego.Calibrando:
 			
 			//SKIP EL TUTORIAL
-			if(Input.GetKey(KeyCode.Mouse0) &&
-			   Input.GetKey(KeyCode.Keypad0))
+			if(Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Keypad0))
 			{
 				if(PlayerInfo1 != null && PlayerInfo2 != null)
 				{
@@ -145,8 +145,7 @@ public class GameManager : MonoBehaviour
 		case EstadoJuego.Jugando:
 			
 			//SKIP LA CARRERA
-			if(Input.GetKey(KeyCode.Mouse1) && 
-			   Input.GetKey(KeyCode.Keypad0))
+			if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
 			{
 				TiempoDeJuego = 0;
 			}
@@ -203,10 +202,9 @@ public class GameManager : MonoBehaviour
 			//tambien se puede hacer alguna animacion, es el tiempo previo a la muestra de pts
 			
 			TiempEspMuestraPts -= Time.deltaTime;
-			if(TiempEspMuestraPts <= 0)
-				Application.LoadLevel(Application.loadedLevel +1);				
-			
-			break;		
+            if (TiempEspMuestraPts <= 0)
+                SceneManager.LoadScene("GameOver");
+            break;		
 		}
 	}
 	
@@ -269,8 +267,9 @@ public class GameManager : MonoBehaviour
 		
 		
 		Player1.CambiarACalibracion();
-		Player2.CambiarACalibracion();
-	}
+        if (!GameMaster.Get().IsSinglePlayer())
+            Player2.CambiarACalibracion();
+    }
 		
 	/*
 	public void CambiarADescarga(Player pj)
@@ -365,8 +364,9 @@ public class GameManager : MonoBehaviour
 		Player2.GetComponent<Frenado>().Frenar();
 		
 		Player1.ContrDesc.FinDelJuego();
-		Player2.ContrDesc.FinDelJuego();
-	}
+        if (!GameMaster.Get().IsSinglePlayer())
+            Player2.ContrDesc.FinDelJuego();
+    }
 	
 	/*
 	public static ControladorDeDescarga GetContrDesc(int pjID)
@@ -474,12 +474,15 @@ public class GameManager : MonoBehaviour
 		Player1.transform.forward = Vector3 .forward;
 		Player1.GetComponent<Frenado>().Frenar();
 		Player1.CambiarAConduccion();
-			
-		Player2.transform.forward = Vector3 .forward;
-		Player2.GetComponent<Frenado>().Frenar();
-		Player2.CambiarAConduccion();
-		
-		//los deja andando
+
+        if (!GameMaster.Get().IsSinglePlayer())
+        {
+            Player2.transform.forward = Vector3.forward;
+            Player2.GetComponent<Frenado>().Frenar();
+            Player2.CambiarAConduccion();
+        }
+
+        //los deja andando
 		Player1.GetComponent<Frenado>().RestaurarVel();
 		Player2.GetComponent<Frenado>().RestaurarVel();
 		//cancela la direccion

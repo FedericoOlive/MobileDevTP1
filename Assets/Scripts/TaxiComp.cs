@@ -22,14 +22,14 @@ public class TaxiComp : MonoBehaviour
 	public string TagTerreno = "";
 	
 	public bool Girando = false;
-	Vector3 RotIni;//pasa saber como volver a su posicion original
-	Vector3 PosIni;//para saber donde reiniciar al taxi
+	Vector3 RotIni;					//pasa saber como volver a su posicion original
+	Vector3 PosIni;					//para saber donde reiniciar al taxi
 	
 	float TiempEntreGiro = 0;
 	float TempoEntreGiro = 0;
 	
 	public float AngDeGiro = 30;
-	float TiempPGiro = 1;//1 es el tiempo que tarda en llegar al otro quaternion
+	float TiempPGiro = 1;			//1 es el tiempo que tarda en llegar al otro quaternion
 	
 	RaycastHit RH;
 	

@@ -24967,8 +24967,9 @@ GameObject:
   - component: {fileID: 6246}
   - component: {fileID: 13082}
   - component: {fileID: 12392}
+  - component: {fileID: 3101}
   m_Layer: 0
-  m_Name: GameMgr
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24991,6 +24992,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3ea51db7afefa45856455855a74a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsDisableSinglePlayer:
+  - {fileID: 3092}
+  - {fileID: 3127}
+  - {fileID: 2023224209}
+  - {fileID: 3125}
+  - {fileID: 2683}
+  - {fileID: 3076}
+  camsP1ToExpand:
+  - {fileID: 6356}
+  - {fileID: 6358}
+  - {fileID: 6359}
+  camsP2ToDisable:
+  - {fileID: 3093}
+  - {fileID: 3127}
+  - {fileID: 2682}
 --- !u!1 &3102
 GameObject:
   m_ObjectHideFlags: 0
@@ -102669,6 +102697,7 @@ MonoBehaviour:
   - {fileID: 3124}
   - {fileID: 3102}
   - {fileID: 213}
+  controladorP2: {fileID: 13068}
 --- !u!1001 &13083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117243,7 +117272,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 27660009}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2023224209}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7272f53a2d4f7174a8c5cb502d24bb0d, type: 3}
@@ -117999,6 +118028,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400054, guid: f8d762f00077c6548a721f32efd88276,
     type: 3}
   m_PrefabInstance: {fileID: 13115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2023224209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1753749050268706, guid: b81b1a58a0f14c9439cbdd014e695f71,
+    type: 3}
+  m_PrefabInstance: {fileID: 27660009}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9143873179788344703
 PrefabInstance:

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviourSingleton<GameMaster>
 {
-    private bool singlePlayer;
+    [SerializeField] private bool singlePlayer;
 
     void Start()
     {

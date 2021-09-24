@@ -15,9 +15,9 @@ public class ContrTutorial : MonoBehaviour
 	//------------------------------------------------------------------//
 
 	// Use this for initialization
-	void Start () 
-	{
-		GM = GameObject.Find("GameMgr").GetComponent<GameManager>();
+	void Start ()
+    {
+        GM = GameManager.Instancia;
 		
 		Pj.ContrTuto = this;
 	}

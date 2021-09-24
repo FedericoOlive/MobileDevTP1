@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MngPts : MonoBehaviour 
 {
@@ -74,7 +74,8 @@ public class MngPts : MonoBehaviour
 		TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
 		{
-			Application.LoadLevel(0);
+			DestroyImmediate(GameMaster.Get().gameObject);
+			SceneManager.LoadScene("GameOver");
 		}
 		
 		
