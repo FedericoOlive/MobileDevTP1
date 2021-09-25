@@ -303,8 +303,6 @@ public class GameManager : MonoBehaviour
     }
     void CambiarACarrera()
 	{
-		//Debug.Log("CambiarACarrera()");
-		
 		Esqueleto1.transform.position = PosEsqsCarrera[0];
 		Esqueleto2.transform.position = PosEsqsCarrera[1];
 		
@@ -323,19 +321,16 @@ public class GameManager : MonoBehaviour
 		{
 			ObjsCalibracion1[i].SetActive(false);
 		}
-		
-		PlayerInfo2.FinCalibrado = true;
-			
-		for(int i = 0; i < ObjsCalibracion2.Length; i++)
+        PlayerInfo2.FinCalibrado = true;
+        for(int i = 0; i < ObjsCalibracion2.Length; i++)
 		{
 			ObjsCalibracion2[i].SetActive(false);
 		}
-		
-		for(int i = 0; i < ObjsTuto2.Length; i++)
+        for(int i = 0; i < ObjsTuto2.Length; i++)
 		{
 			ObjsTuto2[i].SetActive(true);
 		}
-		if(PlayerInfo1.LadoAct == Visualizacion.Lado.Izq)
+        if(PlayerInfo1.LadoAct == Visualizacion.Lado.Izq)
 		{
 			Player1.gameObject.transform.position = PosCamionesCarrera[0];
 			Player2.gameObject.transform.position = PosCamionesCarrera[1];
@@ -345,8 +340,7 @@ public class GameManager : MonoBehaviour
 			Player1.gameObject.transform.position = PosCamionesCarrera[1];
 			Player2.gameObject.transform.position = PosCamionesCarrera[0];
 		}
-		
-		Player1.transform.forward = Vector3 .forward;
+        Player1.transform.forward = Vector3 .forward;
 		Player1.GetComponent<Frenado>().Frenar();
 		Player1.CambiarAConduccion();
 
@@ -356,38 +350,31 @@ public class GameManager : MonoBehaviour
             Player2.GetComponent<Frenado>().Frenar();
             Player2.CambiarAConduccion();
         }
-
-        //los deja andando
-		Player1.GetComponent<Frenado>().RestaurarVel();
+        Player1.GetComponent<Frenado>().RestaurarVel();
 		Player2.GetComponent<Frenado>().RestaurarVel();
-		//cancela la direccion
 		Player1.GetComponent<ControlDireccion>().Habilitado = false;
 		Player2.GetComponent<ControlDireccion>().Habilitado = false;
-		//les de direccion
 		Player1.transform.forward = Vector3.forward;
 		Player2.transform.forward = Vector3.forward;
-		
-		EstAct = GameManager.EstadoJuego.Jugando;
+        EstAct = GameManager.EstadoJuego.Jugando;
 	}
-	
-	public void FinTutorial(int playerID)
+    public void FinTutorial(int playerID)
 	{
-		if(playerID == 0)
-		{
-			PlayerInfo1.FinTuto2 = true;
-			
-		}else if(playerID == 1)
-		{
-			PlayerInfo2.FinTuto2 = true;
-		}
-		
-		if(PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+        if (playerID == 0)
+        {
+            PlayerInfo1.FinTuto2 = true;
+
+        }
+        else if (playerID == 1)
+        {
+            PlayerInfo2.FinTuto2 = true;
+        }
+        if(PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
 		{
 			CambiarACarrera();
 		}
 	}
-	
-	public void FinCalibracion(int playerID)
+    public void FinCalibracion(int playerID)
 	{
 		if(playerID == 0)
 		{
@@ -399,32 +386,23 @@ public class GameManager : MonoBehaviour
 		}
 		
 		if(PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-			if(PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
-				CambiarACarrera();//CambiarATutorial();
-		
-	}
-	
-	
-	
-	
-	[System.Serializable]
+            if (PlayerInfo1.FinTuto1 && PlayerInfo2.FinTuto1)
+                CambiarACarrera();
+    }
+
+    [System.Serializable]
 	public class PlayerInfo
 	{
-		public PlayerInfo(int tipoDeInput, Player pj)
-		{
+        public PlayerInfo(int tipoDeInput, Player pj)
+        {
             TipoDeInput = tipoDeInput;
-			PJ = pj;
-		}
-		
-		public bool FinCalibrado = false;
+            PJ = pj;
+        }
+        public bool FinCalibrado = false;
 		public bool FinTuto1 = false;
 		public bool FinTuto2 = false;
-		
-		public Visualizacion.Lado LadoAct;
-
+        public Visualizacion.Lado LadoAct;
         public int TipoDeInput = -1;
-		
-		public Player PJ;
+        public Player PJ;
 	}
-	
 }
