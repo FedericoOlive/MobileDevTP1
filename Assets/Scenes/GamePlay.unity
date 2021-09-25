@@ -25019,6 +25019,8 @@ MonoBehaviour:
   - {fileID: 3093}
   - {fileID: 3127}
   - {fileID: 2682}
+  objectsOnDificult01: []
+  objectsOnDificult02: []
 --- !u!1 &3102
 GameObject:
   m_ObjectHideFlags: 0
@@ -102698,6 +102700,7 @@ MonoBehaviour:
   - {fileID: 3102}
   - {fileID: 213}
   controladorP2: {fileID: 13068}
+  palletP2: {fileID: 354886829}
 --- !u!1001 &13083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117249,6 +117252,21 @@ PrefabInstance:
       propertyPath: IdPlayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114643806136207610, guid: b81b1a58a0f14c9439cbdd014e695f71,
+        type: 3}
+      propertyPath: ContrDesc
+      value: 
+      objectReference: {fileID: 13064}
+    - target: {fileID: 114643806136207610, guid: b81b1a58a0f14c9439cbdd014e695f71,
+        type: 3}
+      propertyPath: ContrTuto
+      value: 
+      objectReference: {fileID: 13046}
+    - target: {fileID: 114643806136207610, guid: b81b1a58a0f14c9439cbdd014e695f71,
+        type: 3}
+      propertyPath: ContrCalib
+      value: 
+      objectReference: {fileID: 13048}
     - target: {fileID: 114911345111112572, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
       propertyPath: CamDescarga
@@ -117389,7 +117407,7 @@ GameObject:
   - component: {fileID: 292752673}
   - component: {fileID: 292752672}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameMasterTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117407,7 +117425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d54ff68fb4b6324aa6215839d89c1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singlePlayer: 0
+  singlePlayer: 1
+  dificult: 0
 --- !u!4 &292752673
 Transform:
   m_ObjectHideFlags: 0

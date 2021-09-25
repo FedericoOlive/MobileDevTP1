@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 	public GameObject[] ObjsCarrera;
 	IList<int> users;
     public ControladorDeDescarga controladorP2;
-
+    public PalletMover palletP2;
 	void Awake()
 	{
 		GameManager.Instancia = this;
@@ -43,80 +44,105 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
 		IniciarCalibracion();
+		if(true)
+        if (GameMaster.Get().IsSinglePlayer())
+        {
+            StartCoroutine(UseAutimaticArrow());
+        }
+	}
+    private IEnumerator UseAutimaticArrow()
+    {
+        CreatePlayer2();
+        yield return new WaitForSeconds(0.1f);
+        palletP2.FirstStep();
+        yield return new WaitForSeconds(0.1f);
+        palletP2.SecondStep();
+        yield return new WaitForSeconds(0.1f);
+        palletP2.ThirdStep();
+    } 
+    void CreatePlayer2()
+    {
+        PlayerInfo2 = new PlayerInfo(1, Player2);
+        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+        SetPosicion(PlayerInfo2);
 	}
     void Update()
-	{
-		if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
+    {
+        if (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-		}
-		if(Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
-		
-		switch (EstAct)
-		{
-		case EstadoJuego.Calibrando:
-			if(Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Keypad0))
-			{
-				if(PlayerInfo1 != null && PlayerInfo2 != null)
-				{
-					FinCalibracion(0);
-					FinCalibracion(1);
-					
-					FinTutorial(0);
-					FinTutorial(1);
-				}
-			}
+        }
 
-            if (!PlayerInfo1.PJ && Input.GetKeyDown(KeyCode.W))
-            {
-                PlayerInfo1 = new PlayerInfo(0, Player1);
-                PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                SetPosicion(PlayerInfo1);
-            }
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
 
-            if (!PlayerInfo2.PJ && Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                PlayerInfo2 = new PlayerInfo(1, Player2);
-                PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                SetPosicion(PlayerInfo2);
-            }
-
-            //cuando los 2 pj terminaron los tutoriales empiesa la carrera
-            if (PlayerInfo1.PJ && PlayerInfo2.PJ)
-            {
-                if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+        switch (EstAct)
+        {
+            case EstadoJuego.Calibrando:
+                if (Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Keypad0))
                 {
-                    EmpezarCarrera();
+                    if (PlayerInfo1 != null && PlayerInfo2 != null)
+                    {
+                        EndCalib();
+                    }
+					else if (PlayerInfo1 != null && GameMaster.Get().IsSinglePlayer())
+                    {
+                        EndCalib();
+					}
                 }
-            }
-            break;
-        case EstadoJuego.Jugando:
-			if(Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
-                TiempoDeJuego = 0;
-			
-            if(TiempoDeJuego <= 0)
-                FinalizarCarrera();
-			
-            if(ConteoRedresivo)
-			{
-				ConteoParaInicion -= Time.deltaTime;
-				if(ConteoParaInicion < 0)
-				{
-					EmpezarCarrera();
-					ConteoRedresivo = false;
-				}
-			}
-			else
-			{
-				TiempoDeJuego -= Time.deltaTime;
-			}
-            break;
-        case EstadoJuego.Finalizado:
-			TiempEspMuestraPts -= Time.deltaTime;
-            if (TiempEspMuestraPts <= 0)
-                SceneManager.LoadScene("GameOver");
-            break;		
-		}
+                if (!PlayerInfo1.PJ && Input.GetKeyDown(KeyCode.W))
+                {
+                    PlayerInfo1 = new PlayerInfo(0, Player1);
+                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                    SetPosicion(PlayerInfo1);
+                }
+                if (!PlayerInfo2.PJ && Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    CreatePlayer2();
+                }
+                if (PlayerInfo1.PJ && PlayerInfo2.PJ)
+                {
+                    if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                    {
+                        EmpezarCarrera();
+                    }
+                }
+                break;
+            case EstadoJuego.Jugando:
+                if (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
+                    TiempoDeJuego = 0;
+
+                if (TiempoDeJuego <= 0) FinalizarCarrera();
+
+                if (ConteoRedresivo)
+                {
+                    ConteoParaInicion -= Time.deltaTime;
+                    if (ConteoParaInicion < 0)
+                    {
+                        EmpezarCarrera();
+                        ConteoRedresivo = false;
+                    }
+                }
+                else
+                {
+                    TiempoDeJuego -= Time.deltaTime;
+                }
+
+                break;
+            case EstadoJuego.Finalizado:
+                TiempEspMuestraPts -= Time.deltaTime;
+                if (TiempEspMuestraPts <= 0)
+                    SceneManager.LoadScene("GameOver");
+                break;
+        }
+    }
+
+    void EndCalib()
+    {
+        FinCalibracion(0);
+        FinCalibracion(1);
+
+        FinTutorial(0);
+        FinTutorial(1);
 	}
     void OnGUI()
 	{
@@ -209,8 +235,7 @@ public class GameManager : MonoBehaviour
 		Player2.CambiarATutorial();
 		Player2.transform.forward = Vector3 .forward;
 	}
-	
-	void EmpezarCarrera()
+    void EmpezarCarrera()
 	{
 		Player1.GetComponent<Frenado>().RestaurarVel();
 		Player1.GetComponent<ControlDireccion>().Habilitado = true;
@@ -218,8 +243,7 @@ public class GameManager : MonoBehaviour
 		Player2.GetComponent<Frenado>().RestaurarVel();
 		Player2.GetComponent<ControlDireccion>().Habilitado = true;
 	}
-	
-	void FinalizarCarrera()
+    void FinalizarCarrera()
 	{		
 		EstAct = GameManager.EstadoJuego.Finalizado;
 		
@@ -257,30 +281,10 @@ public class GameManager : MonoBehaviour
         if (!GameMaster.Get().IsSinglePlayer())
             Player2.ContrDesc.FinDelJuego();
     }
-	
-	/*
-	public static ControladorDeDescarga GetContrDesc(int pjID)
-	{
-		switch (pjID)
-		{
-		case 1:
-			return ContrDesc1;
-			break;
-			
-		case 2:
-			return ContrDesc2;
-			break;
-		}
-		return null;
-	}*/
-	
-	//se encarga de posicionar la camara derecha para el jugador que esta a la derecha y viseversa
 	void SetPosicion(PlayerInfo pjInf)
 	{	
 		pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
-		//en este momento, solo la primera vez, deberia setear la otra camara asi no se superponen
 		pjInf.PJ.ContrCalib.IniciarTesteo();
-		
 		
 		if(pjInf.PJ == Player1)
 		{
@@ -296,10 +300,8 @@ public class GameManager : MonoBehaviour
 			else
 				Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
 		}
-		
-	}
-	
-	void CambiarACarrera()
+    }
+    void CambiarACarrera()
 	{
 		//Debug.Log("CambiarACarrera()");
 		
@@ -310,17 +312,6 @@ public class GameManager : MonoBehaviour
 		{
 			ObjsCarrera[i].SetActive(true);
 		}
-		
-		/*
-		for(int i = 0; i < ObjsTuto1.Length; i++)
-		{
-			ObjsTuto1[i].SetActive(false);
-			ObjsTuto2[i].SetActive(false);
-		}
-		*/
-		
-		
-		//desactivacion de la calibracion
 		PlayerInfo1.FinCalibrado = true;
 			
 		for(int i = 0; i < ObjsTuto1.Length; i++)
@@ -344,11 +335,6 @@ public class GameManager : MonoBehaviour
 		{
 			ObjsTuto2[i].SetActive(true);
 		}
-		
-		
-		
-		
-		//posiciona los camiones dependiendo de que lado de la pantalla esten
 		if(PlayerInfo1.LadoAct == Visualizacion.Lado.Izq)
 		{
 			Player1.gameObject.transform.position = PosCamionesCarrera[0];

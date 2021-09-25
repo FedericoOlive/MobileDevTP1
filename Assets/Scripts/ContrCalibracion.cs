@@ -1,25 +1,9 @@
 using UnityEngine;
-using System.Collections;
-
 public class ContrCalibracion : MonoBehaviour
 {
 	public Player Pj;
-	/*
-	public string ManoIzqName = "Left Hand";
-	public string ManoDerName = "Right Hand";
-	
-	bool StayIzq = false;
-	bool StayDer = false;
-	*/
-	/*
-	public float TiempCalib = 3;
-	float tempo = 0;
-	*/
 	public float TiempEspCalib = 3;
 	float Tempo2 = 0;
-	
-	//bool EnTutorial = false;
-	
 	public enum Estados{Calibrando, Tutorial, Finalizado}
 	public Estados EstAct = Estados.Calibrando;
 	

@@ -28,45 +28,55 @@ public class PalletMover : ManejoPallets
                 }
                 break;
             case MoveType.Arrows:
-                if (!Tenencia() && Desde.Tenencia() && Input.GetKeyDown(KeyCode.LeftArrow)) 
-                {
-                    PrimerPaso();
-                }
-                if (Tenencia() && Input.GetKeyDown(KeyCode.DownArrow)) 
-                {
-                    SegundoPaso();
-                }
-                if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.RightArrow)) 
-                {
-                    TercerPaso();
-                }
+                if(Input.GetKeyDown(KeyCode.LeftArrow))
+                    if (!Tenencia() && Desde.Tenencia())
+                    {
+                        FirstStep();
+                    }
+                if(Input.GetKeyDown(KeyCode.DownArrow))
+                    if (Tenencia())
+                    {
+                        SecondStep();
+                    }
+                if(Input.GetKeyDown(KeyCode.RightArrow))
+                    if (segundoCompleto && Tenencia())
+                    {
+                        ThirdStep();
+                    }
                 break;
             default:
                 break;
         }
     }
-
-    void PrimerPaso() {
+    public void FirstStep() => PrimerPaso();
+    public void SecondStep() => SegundoPaso();
+    public void ThirdStep() => TercerPaso();
+    public void PrimerPaso() 
+    {
         Desde.Dar(this);
         segundoCompleto = false;
     }
-    void SegundoPaso() {
+    public void SegundoPaso() 
+    {
         base.Pallets[0].transform.position = transform.position;
         segundoCompleto = true;
     }
-    void TercerPaso() {
+    public void TercerPaso() 
+    {
         Dar(Hasta);
         segundoCompleto = false;
     }
-
-    public override void Dar(ManejoPallets receptor) {
+    public override void Dar(ManejoPallets receptor) 
+    {
         if (Tenencia()) {
-            if (receptor.Recibir(Pallets[0])) {
+            if (receptor.Recibir(Pallets[0])) 
+            {
                 Pallets.RemoveAt(0);
             }
         }
     }
-    public override bool Recibir(Pallet pallet) {
+    public override bool Recibir(Pallet pallet) 
+    {
         if (!Tenencia()) {
             pallet.Portador = this.gameObject;
             base.Recibir(pallet);

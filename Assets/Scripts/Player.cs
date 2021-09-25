@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class Player : MonoBehaviour 
 {
@@ -13,15 +14,17 @@ public class Player : MonoBehaviour
     public ControladorDeDescarga ContrDesc;
 	public ContrCalibracion ContrCalib;
 	public ContrTutorial ContrTuto;
-    Visualizacion MiVisualizacion;
+    private Visualizacion MiVisualizacion;
 
-	void Start () 
-	{
-		for(int i = 0; i< Bolasas.Length;i++)
-			Bolasas[i] = null;
-		
+    private void Awake()
+    {
 		MiVisualizacion = GetComponent<Visualizacion>();
-	}
+    }
+    void Start ()
+    {
+        for (int i = 0; i < Bolasas.Length; i++)
+            Bolasas[i] = null;
+    }
 	public bool AgregarBolsa(Bolsa b)
 	{
 		if(CantBolsAct + 1 <= Bolasas.Length)
@@ -66,23 +69,23 @@ public class Player : MonoBehaviour
     public void CambiarACalibracion()
 	{
 		MiVisualizacion.CambiarACalibracion();
-		EstAct = Player.Estados.EnCalibracion;
+		EstAct = Estados.EnCalibracion;
 	}
     public void CambiarATutorial()
 	{
 		MiVisualizacion.CambiarATutorial();
-		EstAct = Player.Estados.EnTutorial;
+		EstAct = Estados.EnTutorial;
 		ContrTuto.Iniciar();
 	}
     public void CambiarAConduccion()
 	{
 		MiVisualizacion.CambiarAConduccion();
-		EstAct = Player.Estados.EnConduccion;
+		EstAct = Estados.EnConduccion;
 	}
     public void CambiarADescarga()
 	{
 		MiVisualizacion.CambiarADescarga();
-		EstAct = Player.Estados.EnDescarga;
+		EstAct = Estados.EnDescarga;
 	}
     public void SacarBolasa()
 	{
