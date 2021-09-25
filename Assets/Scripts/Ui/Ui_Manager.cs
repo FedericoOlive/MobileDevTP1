@@ -17,13 +17,4 @@ public class Ui_Manager : MonoBehaviour
             panelsPlayer[1].gameObject.SetActive(false);
         }
     }
-    void Update()
-    {
-        
-    }
-
-    void UpdateMoney()
-    {
-
-    }
 }

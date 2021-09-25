@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instancia;
     public float TiempoDeJuego = 60;
+    public List<GameObject> obtaclesList = new List<GameObject>();
     public enum EstadoJuego{Calibrando, Jugando, Finalizado}
 	public EstadoJuego EstAct = EstadoJuego.Calibrando;
     public PlayerInfo PlayerInfo1;
@@ -42,10 +43,15 @@ public class GameManager : MonoBehaviour
     void Start()
 	{
 		IniciarCalibracion();
-		if(true)
         if (GameMaster.Get().IsSinglePlayer())
         {
             StartCoroutine(UseAutimaticArrow());
+        }
+
+        int dificult = GameMaster.Get().dificult;
+        for (int i = 0; i <= dificult; i++)
+        {
+            obtaclesList[i].SetActive(true);
         }
 	}
     private IEnumerator UseAutimaticArrow()
