@@ -8,11 +8,9 @@ public class MngPts : MonoBehaviour
 	float Tempo = 0;
     public Vector2[] DineroPos;
 	public Vector2 DineroEsc;
-	public GUISkin GS_Dinero;
     public Vector2 GanadorPos;
 	public Vector2 GanadorEsc;
 	public Texture2D[] Ganadores;
-	public GUISkin GS_Ganador;
     public GameObject Fondo;
     public float TiempEspReiniciar = 10;
     public float TiempParpadeo = 0.7f;
@@ -79,19 +77,19 @@ public class MngPts : MonoBehaviour
 	}
 	void SetGanador()
 	{
-		switch(DatosPartida.LadoGanadaor)
+		switch(DatosPartida.LadoGanadaor)	// Todo: Se elige el Ganador
 		{
 		case DatosPartida.Lados.Der:
-            GS_Ganador.box.normal.background = Ganadores[1];
+            // GS_Ganador.box.normal.background = Ganadores[1];
             break;
         case DatosPartida.Lados.Izq:
-            GS_Ganador.box.normal.background = Ganadores[0];
+            // GS_Ganador.box.normal.background = Ganadores[0];
             break;
 		}
 	}
-    void SetDinero()
+    void SetDinero() // Todo: Se setea el dinero
 	{
-		GUI.skin = GS_Dinero;
+		// GUI.skin = GS_Dinero;
         R.width = DineroEsc.x * Screen.width/100;
 		R.height = DineroEsc.y * Screen.height/100;
 
@@ -121,9 +119,9 @@ public class MngPts : MonoBehaviour
             GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
         }
     }
-    void SetCartelGanador()
+    void SetCartelGanador()			// Cartelito de Ganador
 	{
-		GUI.skin = GS_Ganador;
+		// GUI.skin = GS_Ganador;
 
         R.width = GanadorEsc.x * Screen.width / 100;
         R.height = GanadorEsc.y * Screen.height / 100;

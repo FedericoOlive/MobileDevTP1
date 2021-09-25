@@ -1,11 +1,20 @@
 using System;
 using UnityEngine;
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour
 {
+    public enum Direction
+    {
+        Left,
+        None,
+        Right
+    }
+    public Direction direction = Direction.None;
+
+    public Action<int> AddMoney;
 	public int Dinero = 0;
 	public int IdPlayer = 0;
     public Bolsa[] Bolasas;
-	int CantBolsAct = 0;
+    public int CantBolsAct = 0;
 	public string TagBolsas = "";
     public enum Estados{EnDescarga, EnConduccion, EnCalibracion, EnTutorial}
 	public Estados EstAct = Estados.EnConduccion;
@@ -25,7 +34,13 @@ public class Player : MonoBehaviour
         for (int i = 0; i < Bolasas.Length; i++)
             Bolasas[i] = null;
     }
-	public bool AgregarBolsa(Bolsa b)
+
+    private void Update()
+    {
+        
+    }
+
+    public bool AgregarBolsa(Bolsa b)
 	{
 		if(CantBolsAct + 1 <= Bolasas.Length)
 		{
@@ -33,6 +48,7 @@ public class Player : MonoBehaviour
 			CantBolsAct++;
 			Dinero += (int)b.Monto;
 			b.Desaparecer();
+            AddMoney?.Invoke(Dinero);
 			return true;
 		}
 		else
@@ -46,7 +62,8 @@ public class Player : MonoBehaviour
 			Bolasas[i] = null;
 		
 		CantBolsAct = 0;
-	}
+        AddMoney?.Invoke(Dinero);
+    }
     public bool ConBolasas()
 	{
 		for(int i = 0; i< Bolasas.Length;i++)

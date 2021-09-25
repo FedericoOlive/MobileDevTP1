@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class ControladorDeDescarga : MonoBehaviour
 {
-    private List<Pallet.Valores> Ps = new List<Pallet.Valores>();
+	public Action<int> onAddMoneyBonus;
+
+	private List<Pallet.Valores> Ps = new List<Pallet.Valores>();
     private int Contador = 0;
     Deposito2 Dep;
     public GameObject[] Componentes;
@@ -101,8 +104,8 @@ public class ControladorDeDescarga : MonoBehaviour
 		Contador--;
 		
 		Pj.Dinero += (int)Bonus;
-		
-		if(Contador <= 0)
+        onAddMoneyBonus?.Invoke(Pj.Dinero);
+		if (Contador <= 0)
 		{
 			Finalizacion();
 		}

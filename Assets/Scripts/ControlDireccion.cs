@@ -1,6 +1,7 @@
 using UnityEngine;
-public class ControlDireccion : MonoBehaviour 
+public class ControlDireccion : MonoBehaviour
 {
+    private Player player;
     public enum Sentido
     {
         Der,
@@ -18,6 +19,7 @@ public class ControlDireccion : MonoBehaviour
     private CarController carController;
     private void Awake()
     {
+        player = GetComponent<Player>();
         carController = GetComponent<CarController>();
     }
     private void Update () 
@@ -56,18 +58,18 @@ public class ControlDireccion : MonoBehaviour
             case TipoInput.AWSD:                // Todo: WASD GetKey() KeyConde.W
                 if (Habilitado)
                 {
-                    if (Input.GetKey(KeyCode.A)) 
+                    if (Input.GetKey(KeyCode.A) || player.direction == Player.Direction.Left) 
                         carController.SetGiro(-1);
-                    if (Input.GetKey(KeyCode.D)) 
+                    if (Input.GetKey(KeyCode.D) || player.direction == Player.Direction.Right)
                         carController.SetGiro(1);
                 }
                 break;
             case TipoInput.Arrows:
                 if (Habilitado)
                 {
-                    if (Input.GetKey(KeyCode.LeftArrow)) 
+                    if (Input.GetKey(KeyCode.LeftArrow) || player.direction == Player.Direction.Left) 
                         carController.SetGiro(-1);
-                    if (Input.GetKey(KeyCode.RightArrow)) 
+                    if (Input.GetKey(KeyCode.RightArrow) || player.direction == Player.Direction.Right) 
                         carController.SetGiro(1);
                 }
                 break;

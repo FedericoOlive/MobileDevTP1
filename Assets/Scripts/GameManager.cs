@@ -19,9 +19,7 @@ public class GameManager : MonoBehaviour
     bool ConteoRedresivo = true;
 	public Rect ConteoPosEsc;
 	public float ConteoParaInicion = 3;
-	public GUISkin GS_ConteoInicio;
     public Rect TiempoGUI = new Rect();
-	public GUISkin GS_TiempoGUI;
 	Rect R = new Rect();
     public float TiempEspMuestraPts = 3;
     public Vector3[]PosCamionesCarrera = new Vector3[2];
@@ -59,13 +57,25 @@ public class GameManager : MonoBehaviour
         palletP2.SecondStep();
         yield return new WaitForSeconds(0.1f);
         palletP2.ThirdStep();
-    } 
-    void CreatePlayer2()
-    {
-        PlayerInfo2 = new PlayerInfo(1, Player2);
-        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-        SetPosicion(PlayerInfo2);
 	}
+    public void CreatePlayer1()
+    {
+        if (!PlayerInfo1.PJ)
+        {
+            PlayerInfo1 = new PlayerInfo(0, Player1);
+            PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+            SetPosicion(PlayerInfo1);
+        }
+    }
+    public void CreatePlayer2()
+    {
+        if (!PlayerInfo2.PJ)
+        {
+            PlayerInfo2 = new PlayerInfo(1, Player2);
+            PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+            SetPosicion(PlayerInfo2);
+        }
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.Mouse1) && Input.GetKey(KeyCode.Keypad0))
@@ -89,13 +99,11 @@ public class GameManager : MonoBehaviour
                         EndCalib();
 					}
                 }
-                if (!PlayerInfo1.PJ && Input.GetKeyDown(KeyCode.W))
+                if (Input.GetKeyDown(KeyCode.W))
                 {
-                    PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                    SetPosicion(PlayerInfo1);
+                    CreatePlayer1();
                 }
-                if (!PlayerInfo2.PJ && Input.GetKeyDown(KeyCode.UpArrow))
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
                     CreatePlayer2();
                 }
@@ -135,7 +143,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
     void EndCalib()
     {
         FinCalibracion(0);
@@ -143,40 +150,6 @@ public class GameManager : MonoBehaviour
 
         FinTutorial(0);
         FinTutorial(1);
-	}
-    void OnGUI()
-	{
-		switch (EstAct)
-		{
-		case EstadoJuego.Jugando:
-			if(ConteoRedresivo)
-			{
-				GUI.skin = GS_ConteoInicio;
-				
-				R.x = ConteoPosEsc.x * Screen.width/100;
-				R.y = ConteoPosEsc.y * Screen.height/100;
-				R.width = ConteoPosEsc.width * Screen.width/100;
-				R.height = ConteoPosEsc.height * Screen.height/100;
-				
-				if(ConteoParaInicion > 1)
-				{
-					GUI.Box(R, ConteoParaInicion.ToString("0"));
-				}
-				else
-				{
-					GUI.Box(R, "GO");
-				}
-			}
-			
-			GUI.skin = GS_TiempoGUI;
-			R.x = TiempoGUI.x * Screen.width/100;
-			R.y = TiempoGUI.y * Screen.height/100;
-			R.width = TiempoGUI.width * Screen.width/100;
-			R.height = TiempoGUI.height * Screen.height/100;
-			GUI.Box(R,TiempoDeJuego.ToString("00"));
-			break;
-		}
-        GUI.skin = null;
 	}
 	public void IniciarCalibracion()
 	{

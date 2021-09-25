@@ -1,73 +1,60 @@
+using System;
 using UnityEngine;
-using System.Collections;
-
 public class Bolsa : MonoBehaviour
 {
 	public Pallet.Valores Monto;
-	//public int idPlayer = 0;
 	public string TagPlayer = "";
 	public Texture2D ImagenInventario;
-	Player Pj = null;
-	
-	bool Desapareciendo;
+    private Player Pj;
+    private bool Desapareciendo;
 	public GameObject Particulas;
 	public float TiempParts = 2.5f;
-
-	// Use this for initialization
-	void Start () 
+    private Renderer renderer;
+    private Collider collider;
+	private void Awake()
+    {
+        renderer = GetComponent<Renderer>();
+        collider = GetComponent<Collider>();
+    }
+    void Start () 
 	{
 		Monto = Pallet.Valores.Valor2;
-		
-		
-		if(Particulas != null)
+        if(Particulas != null)
 			Particulas.SetActive(false);
-			
-	}
-	
-	// Update is called once per frame
+    }
 	void Update ()
 	{
-		
-		if(Desapareciendo)
+        if(Desapareciendo)
 		{
 			TiempParts -= Time.deltaTime;
 			if(TiempParts <= 0)
 			{
-				GetComponent<Renderer>().enabled = true;
-				GetComponent<Collider>().enabled = true;
-				
-				Particulas.GetComponent<ParticleSystem>().Stop();
+				renderer.enabled = true;
+                collider.enabled = true;
+                Particulas.GetComponent<ParticleSystem>().Stop();
 				gameObject.SetActive(false);
 			}
 		}
-		
-	}
-	
-	void OnTriggerEnter(Collider coll)
+    }
+    void OnTriggerEnter(Collider coll)
 	{
-		if(coll.tag == TagPlayer)
+		if(coll.CompareTag(TagPlayer))
 		{
 			Pj = coll.GetComponent<Player>();
-			//if(idPlayer == Pj.idPlayer)
-			//{
-				if(Pj.AgregarBolsa(this))
-					Desaparecer();
-			//}
-		}
+            if (Pj.AgregarBolsa(this))
+                Desaparecer();
+        }
 	}
-	
-	public void Desaparecer()
+    public void Desaparecer()
 	{
 		Particulas.GetComponent<ParticleSystem>().Play();
 		Desapareciendo = true;
-		
-		GetComponent<Renderer>().enabled = false;
-		GetComponent<Collider>().enabled = false;
+        renderer.enabled = false;
+		collider.enabled = false;
 		
 		if(Particulas != null)
 		{
 			Particulas.GetComponent<ParticleSystem>().Play();
 		}
-	
-	}
+    }
 }

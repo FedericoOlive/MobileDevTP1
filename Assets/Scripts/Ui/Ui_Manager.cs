@@ -12,7 +12,10 @@ public class Ui_Manager : MonoBehaviour
     
     void Start()
     {
-        
+        if (GameMaster.Get().IsSinglePlayer())
+        {
+            panelsPlayer[1].gameObject.SetActive(false);
+        }
     }
     void Update()
     {
