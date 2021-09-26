@@ -41,7 +41,7 @@ public class Pallet : MonoBehaviour
 				}
 				else
 				{
-					print("smoot");
+					//print("smoot");
 					
 					if(Portador.GetComponent<ManoRecept>() != null)
 						transform.position = Portador.transform.position - Vector3.up * 1.2f;
@@ -52,7 +52,7 @@ public class Pallet : MonoBehaviour
 			}
 			else
 			{
-				print("crudo");
+				//print("crudo");
 				
 				if(Portador.GetComponent<ManoRecept>() != null)
 					transform.position = Portador.transform.position - Vector3.up * 1.2f;

@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 	IList<int> users;
     public ControladorDeDescarga controladorP2;
     public PalletMover palletP2;
+    public GameObject[] buttonStart;
 	void Awake()
 	{
 		GameManager.Instancia = this;
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerInfo1.PJ)
         {
-            PlayerInfo1 = new PlayerInfo(0, Player1);
+            buttonStart[0].SetActive(false);
+			PlayerInfo1 = new PlayerInfo(0, Player1);
             PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
             SetPosicion(PlayerInfo1);
         }
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
     {
         if (!PlayerInfo2.PJ)
         {
+            buttonStart[1].SetActive(false);
             PlayerInfo2 = new PlayerInfo(1, Player2);
             PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
             SetPosicion(PlayerInfo2);

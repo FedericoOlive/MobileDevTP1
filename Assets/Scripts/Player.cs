@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
@@ -28,18 +29,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
 		MiVisualizacion = GetComponent<Visualizacion>();
+        AddMoney += UpdateMoney;
     }
     void Start ()
     {
         for (int i = 0; i < Bolasas.Length; i++)
             Bolasas[i] = null;
     }
-
-    private void Update()
-    {
-        
-    }
-
     public bool AgregarBolsa(Bolsa b)
 	{
 		if(CantBolsAct + 1 <= Bolasas.Length)
@@ -104,7 +100,16 @@ public class Player : MonoBehaviour
 		MiVisualizacion.CambiarADescarga();
 		EstAct = Estados.EnDescarga;
 	}
-    public void SacarBolasa()
+
+    void UpdateMoney(int money)
+    {
+        if (IdPlayer == 0)
+            GameMaster.Get().moneyP1 = money;
+        else if (IdPlayer == 1)
+            GameMaster.Get().moneyP2 = money;
+    }
+
+	public void SacarBolasa()
 	{
 		for(int i = 0; i < Bolasas.Length; i++)
 		{

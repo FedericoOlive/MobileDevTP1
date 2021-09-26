@@ -19,7 +19,7 @@ public class AnimMngDesc : MonoBehaviour
         if (materials.Length == 9)
         {
             Transform door = PuertaAnimada.transform.GetChild(0);
-            Debug.Log(door.name);
+            //Debug.Log(door.name);
             door.GetComponent<MeshRenderer>().materials[0] = materials[0];
             door.GetComponent<MeshRenderer>().materials[1] = materials[1];
             door.GetComponent<MeshRenderer>().materials[2] = materials[2];
@@ -50,7 +50,7 @@ public class AnimMngDesc : MonoBehaviour
 			{
 				AnimAct = AnimMngDesc.AnimEnCurso.Nada;
 				ContrDesc.FinAnimEntrada();
-				print("fin Anim Entrada");
+				//print("fin Anim Entrada");
 			}
 			
 			break;
@@ -61,7 +61,7 @@ public class AnimMngDesc : MonoBehaviour
 			{
 				AnimAct = AnimMngDesc.AnimEnCurso.Nada;
 				ContrDesc.FinAnimSalida();
-				print("fin Anim Salida");
+				//print("fin Anim Salida");
 			}
 			
 			break;
