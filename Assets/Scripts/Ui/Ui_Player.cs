@@ -16,17 +16,11 @@ public class Ui_Player : MonoBehaviour
     private float onTimeWait;
     private int currentmaxSprite;
 
-    private void Awake()
-    {
-
-    }
-
     void Start()
     {
         player.AddMoney += UiUpdateScore;
         controladorDeDescarga.onAddMoneyBonus += UiUpdateScore;
     }
-
     private void Update()
     {
         if (amountBags > 2)
@@ -44,7 +38,6 @@ public class Ui_Player : MonoBehaviour
             onTimeWait = 0;
         }
     }
-
     public void UiUpdateScore(int amount)
     {
         textMoney.text = "$" + amount;

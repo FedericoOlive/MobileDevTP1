@@ -119,7 +119,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 9d1d328e65f0bec4dbe34c56009e8e76,
+    type: 2}
   m_UseShadowmask: 0
 --- !u!1 &6
 GameObject:
@@ -1313,10 +1314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d54ff68fb4b6324aa6215839d89c1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singlePlayer: 1
-  dificult: 0
-  moneyP1: 0
-  moneyP2: 0
+  singlePlayer: 0
+  dificult: 1
+  moneyP1: 324324
+  moneyP2: 123
 --- !u!4 &2006495716
 Transform:
   m_ObjectHideFlags: 0

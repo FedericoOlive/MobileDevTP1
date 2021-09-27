@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Ui_GameOver : MonoBehaviour
+public class Ui_GameOver : MonoBehaviour    // Todo: change type name
 {
     public TextMeshProUGUI textP1;
     public TextMeshProUGUI textP2;
     public Image playerWinner;
-    private bool P1Win;
+    private bool P1Win; // Todo: Change to lower
     private int moneyP1;
     private int moneyP2;
     public Sprite spriteP1Win;
@@ -27,6 +27,8 @@ public class Ui_GameOver : MonoBehaviour
         P1Win = moneyP1 > moneyP2;
 
         playerWinner.sprite = P1Win ? spriteP1Win : spriteP2Win;
+
+        Destroy(GameMaster.Get().gameObject);
     }
     void Update()
     {

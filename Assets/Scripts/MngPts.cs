@@ -61,7 +61,6 @@ public class MngPts : MonoBehaviour
     }
     public void SwitchToMainMenu()
     {
-        DestroyImmediate(GameMaster.Get().gameObject);
 		SceneManager.LoadScene("MainMenu");
     }
 }
